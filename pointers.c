@@ -1,34 +1,50 @@
 /********************************************************************************
-* pointers.c: Demonstration av pekare. Pekare utgör datamedlemmar som pekar
-*             på adressen till en redan befintlig variabel. Via pekare kan
-*             därmed adresser till variabler/konstanter passeras i stället 
-*             för att passera kopior av dessa, vilket annars sker. Detta är
-*             särskilt fördelaktigt för större datamedlemmar, som annars
-*             kräver mycket resurser för kopiering samt för att sedan passera
-*             kopian vid ett funktionsanrop eller dylikt.
+* pointers.c: Demonstration av pekare i C.
 * 
-*             En pekare deklareras enligt nedan:
-*             datatyp* i = 0;
+*             Pekare utgör datamedlemmar som pekar på adresser till andra
+*             datamedlemmar. Exempelvis kan en intpekare (int*) peka på
+*             adressen till en intvariabel (int).
 * 
-*             Pekarens datatyp skall vara samma som den medlem den pekar på.
-*             Som exempel, anta att en variabel x av datatypen int med 
-*             startvärde 3 deklareras enligt nedan:
-*             int x = 3;
-*              
-*             Vi kan då deklarera en pekare döpt ptr som pekar på x
-*             enligt nedan:
-*             int* ptr = &x;
+*             En pekare har följande syntax:
+*             datatyp* namn = adress.
 * 
-*             &x betyder adressen till x, där & utgör den så kallade 
-*             adressoperatorn. Innehållet på adressen som ptr pekar på,
-*             alltså innehållet i variabeln x, kan erhållas via den så kallade
-*             dereferensoperatorn *, där *ptr innebär innehållet som ptr
-*             pekar på, alltså innehållet i variabel x, vilket är 3. 
+*             Pekarens datatyp skall sättas till samma datatyp som 
+*             datamedlemmen den pekar på, exempelvis double* ifall pekaren
+*             skall peka på en variabel av datatypen double, const int* ifall
+*             pekaren skall peka på en konstant av dataypen int.
 * 
-*             Adressoperatorn & samt derefensoperatorn * är varandras motsatser.
+*             För att peka på adressen till en given datamedlem används den
+*             så kallade adressoperatorn &, där exempelvis &x betyder adressen
+*             till datamedlemmen x.
+* 
+*             Som exempel, låt en variabel av datatypen double döpt x
+*             deklareras enligt nedan och initieras med startvärde 3.4:
+*             double x = 3.4;
+* 
+*             Låt sedan en pekare döpt ptr1 peka på adressen till x via
+*             nedanstående instruktion:
+*             double* ptr1 = &x;
+* 
+*             Innehållet på adressen som ptr1 pekar på kan kommas åt via den
+*             så kallade dereferensoperatorn *, där *ptr1 betyder innehållet
+*             på adressen som ptr1 pekar på, dvs. innehållet i variabel x.
+* 
+*             Som exempel, via dereferensoperatorn * kan innehållet lagrat av 
+*             variabel x ändras till 7.3 enligt nedan:
+*             *ptr1 = 7.3;
+* 
+*             För pekare ptr1 gäller följande:
+*             ptr1  => adressen som ptr1 pekar på (adressen till x).
+*             *ptr1 => innehållet på adressen som ptr1 pekar på (innehållet
+*                      lagrat av variabel x).
+*             &ptr1 => adressen till pekaren ptr1, dvs. adressen där ptr1
+*                      är lagrad på.
+* 
+*             För utskrift av adresser används formatspecificerare %p (pointer).
+*             Som exempel, för att skriva ut adressen till en variabel döpt
+*             x kan följande utskrift genomföras:
+*             printf("The variable x is stored at address %p!\n", &x);
 ********************************************************************************/
-
-/* Inkluderingsdirektiv: */
 #include <stdio.h>
 
 /********************************************************************************
